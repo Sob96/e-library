@@ -40,12 +40,21 @@
 .books{
     display: flex;
     flex-flow: column wrap;
+    text-align: center;
+}
+
+.books__total {
+    text-align: center;
 }
 
 .cards li {
     list-style-type: none;
     display: inline-block;
 }
+
+// .books__load {
+//     te
+// }
 
 /*Book*/
 // .book__wrapper{

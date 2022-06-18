@@ -3,34 +3,34 @@ import { AppContext } from "../App";
 
 function Search() {
   const[request, setRequest] = useState('');
-  const[category, setCategory] = useState('all');
-  const { setData } = useContext(AppContext);
+  const[category, setCategory] = useState('All');
+  const[order, setOrder] = useState('relevance');
+  const { setData, setTotalResult, isLoaded, setIsLoaded, index } = useContext(AppContext);
 
   function getBooks(e) {
     e.preventDefault();
-    fetch(`https://www.googleapis.com/books/v1/volumes?q=${request}&key=AIzaSyCU2Ohli3IT9UIkV3fzmteL44bELaReN4o&maxResults=40`)
+    fetch(`https://www.googleapis.com/books/v1/volumes?q=${request}&orderBy=${order}&key=AIzaSyCU2Ohli3IT9UIkV3fzmteL44bELaReN4o&startIndex=${index}`)
     .then(response => {
       return response.json();
     })
     .then(result => {
+      setTotalResult(result.totalItems);
+      setIsLoaded(true);
       const volumes = result.items;
-      if (category === 'all') {
+      if (category === 'All') {
         setData(volumes);
       }else {
         setData(volumes.filter(
           volume => {
-            const category = volume.volumeInfo.categories;
-            return !category ? "" : category[0].includes(category);
+            const criterion = volume.volumeInfo.categories;
+            if (criterion) {
+              return criterion[0].includes(category);
+            } 
           }
         ))
       }
-    
     });
   }
-
-  // useEffect(() =>{
-  //   if (data.length === 0) getBooks();
-  // }, [data]);
 
   function getRequest(e) {
     setRequest(e.target.value);
@@ -38,6 +38,10 @@ function Search() {
 
   function getCategory(e) {
     setCategory(e.target.value);
+  }
+
+  function getOrder(e) {
+    setOrder(e.target.value);
   }
 
     return (
@@ -50,16 +54,16 @@ function Search() {
                   <div className="search_selects">
                       <label htmlFor="categories">categories</label>
                       <select value={category} onChange={getCategory} id="categories"> 
-                          <option>all</option> 
-                          <option>art</option> 
-                          <option>biography</option> 
-                          <option>computers</option>
-                          <option>history</option> 
-                          <option>medical</option> 
-                          <option>poetry</option>  
+                          <option>All</option> 
+                          <option>Art</option> 
+                          <option>Biography</option> 
+                          <option>Computers</option>
+                          <option>History</option> 
+                          <option>Medical</option> 
+                          <option>Poetry</option>  
                       </select>
                       <label htmlFor="sorting">sorting by</label>
-                      <select id="sorting"> 
+                      <select value={order} onChange={getOrder} id="sorting"> 
                           <option>relevance</option> 
                           <option>newest</option> 
                       </select>

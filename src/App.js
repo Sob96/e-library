@@ -11,21 +11,13 @@ export const AppContext = React.createContext();
 function App() {
   const[data, setData] = useState([]);
   const[book, setBook] = useState({});
-  // const[search, setSearch] = useState();
-
-  // function getBooks() {
-  //   fetch(`https://www.googleapis.com/books/v1/volumes?q=${search}&key=AIzaSyCU2Ohli3IT9UIkV3fzmteL44bELaReN4o`)
-  //   .then(response => {
-  //     return response.json();
-  //   })
-  //   .then(data => {
-  //     console.log(data);
-  //   });
-  // }
-
+  const[totalResult, setTotalResult] = useState();
+  const[index, setIndex] = useState(0);
+  const[isLoaded, setIsLoaded] = useState(false);
+  
 
   return (
-    <AppContext.Provider value={{data, setData, book, setBook}}>
+    <AppContext.Provider value={{data, setData, book, setBook, totalResult, setTotalResult, isLoaded, setIsLoaded, index, setIndex}}>
       <Router>
         <Search/>
         <Routes>
