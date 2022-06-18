@@ -9,11 +9,12 @@
     width: 90%;
     max-width: 1440px;
     margin: 0 auto;
-    border: none;
+    text-align: center;
 }
 
     
 /*Search*/
+
 .search {
     width: 100%;
    text-align: center;
@@ -37,7 +38,7 @@
 
 /*Books*/
 
-.books{
+.books__wrapper {
     display: flex;
     flex-flow: column wrap;
     text-align: center;

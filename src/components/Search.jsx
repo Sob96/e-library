@@ -1,34 +1,38 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { AppContext } from "../App";
 
 function Search() {
-  const[request, setRequest] = useState('');
-  const[category, setCategory] = useState('All');
-  const[order, setOrder] = useState('relevance');
-  const { setData, setTotalResult, isLoaded, setIsLoaded, index } = useContext(AppContext);
+  const { data, setData, setTotalResult, setLoading, setNoResult, request, setRequest, order, setOrder, category, setCategory, index, setIndex } = useContext(AppContext);
 
   function getBooks(e) {
     e.preventDefault();
-    fetch(`https://www.googleapis.com/books/v1/volumes?q=${request}&orderBy=${order}&key=AIzaSyCU2Ohli3IT9UIkV3fzmteL44bELaReN4o&startIndex=${index}`)
+    setLoading(true);
+    fetch(`https://www.googleapis.com/books/v1/volumes?q=${request}&orderBy=${order}&key=AIzaSyCU2Ohli3IT9UIkV3fzmteL44bELaReN4o&startIndex=${index}&maxResults=30`)
     .then(response => {
       return response.json();
     })
     .then(result => {
       setTotalResult(result.totalItems);
-      setIsLoaded(true);
       const volumes = result.items;
-      if (category === 'All') {
-        setData(volumes);
+      setLoading(false);
+      if(volumes) {
+        if (category === 'All') {
+          setData([...volumes]);
+        }else {
+          setData([...volumes].filter(
+            volume => {
+              const criterion = volume.volumeInfo.categories;
+              if (criterion) {
+                return criterion[0].includes(category);
+              } 
+            }
+          ))
+        }
       }else {
-        setData(volumes.filter(
-          volume => {
-            const criterion = volume.volumeInfo.categories;
-            if (criterion) {
-              return criterion[0].includes(category);
-            } 
-          }
-        ))
+        setData([]);
+        setNoResult('Nothing found');
       }
+      setIndex(volumes.length);
     });
   }
 

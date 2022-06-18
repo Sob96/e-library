@@ -11,18 +11,21 @@ export const AppContext = React.createContext();
 function App() {
   const[data, setData] = useState([]);
   const[book, setBook] = useState({});
-  const[totalResult, setTotalResult] = useState();
   const[index, setIndex] = useState(0);
-  const[isLoaded, setIsLoaded] = useState(false);
-  
+  const[request, setRequest] = useState('');
+  const[category, setCategory] = useState('All');
+  const[order, setOrder] = useState('relevance');
+  const[totalResult, setTotalResult] = useState();
+  const[loading, setLoading] = useState(false);
+  const[noResult, setNoResult] = useState('');
 
   return (
-    <AppContext.Provider value={{data, setData, book, setBook, totalResult, setTotalResult, isLoaded, setIsLoaded, index, setIndex}}>
+    <AppContext.Provider value={{data, setData, book, setBook, totalResult, setTotalResult, loading, setLoading, noResult, setNoResult, request, setRequest, order, setOrder, category, setCategory, index, setIndex}}>
       <Router>
         <Search/>
         <Routes>
         <Route path="/" element={<Books />}></Route>
-        <Route path="/books/:id" element={<Book />}></Route>
+        <Route path="books/:id" element={<Book />}></Route>
         </Routes>
       </Router>
     </AppContext.Provider>
