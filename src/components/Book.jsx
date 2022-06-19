@@ -1,13 +1,32 @@
 import { useContext } from "react";
 import { AppContext } from "../App";
+import { useParams } from 'react-router-dom';
 import placeholder from '../img/placeholder.png';
+import { useEffect } from "react";
 
 function Book() {
-    const { book } = useContext(AppContext);
-    const category = book.volumeInfo.categories;
-    const title = book.volumeInfo.title;
-    const authors = book.volumeInfo.authors;
-    const description = book.volumeInfo.description;
+    const { book, apiKey, setBook } = useContext(AppContext);
+    const category = book.volumeInfo?.categories;
+    const title = book.volumeInfo?.title;
+    const authors = book.volumeInfo?.authors;
+    const description = book.volumeInfo?.description;
+
+    const { id } = useParams();
+
+    function getBook() {
+        fetch(`https://www.googleapis.com/books/v1/volumes/${id}`)
+        .then(response => {
+            return response.json();
+          })
+          .then(result => {
+            setBook(result);
+          })
+    }
+
+    useEffect(() => {
+        getBook()
+    }, [])
+
     return (
         <section className="book">
             <div className="container">

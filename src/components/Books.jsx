@@ -7,36 +7,13 @@ import loadingImg from '../img/loadingImg.gif';
 
 
 function Books() {
-    const { data, setData, setBook, totalResult, loading, setLoading, noResult, request, setRequest, order, setOrder, category, setCategory, index, setIndex} = useContext(AppContext);
+    const { data, setData, setBook, totalResult, loading, setLoading, noResult, request, setRequest, order, setOrder, category, setCategory, index, setIndex, apiKey, fetchBooks} = useContext(AppContext);
     console.log(data);
-    
-    function getBook(book){
-        setBook(book);
-    }
 
     function pagination() {
-        setLoading(true);
-        fetch(`https://www.googleapis.com/books/v1/volumes?q=${request}&orderBy=${order}&key=AIzaSyCU2Ohli3IT9UIkV3fzmteL44bELaReN4o&startIndex=${index}&maxResults=30`)
-        .then(response => {
-        return response.json();
-        })
-        .then(result => {
-        const volumes = result.items;
-        setLoading(false);
-        if (category === 'All') {
-            setData([...data, ...volumes]);
-          }else {
-            setData([...data, ...volumes.filter(
-              volume => {
-                const criterion = volume.volumeInfo.categories;
-                if (criterion) {
-                  return criterion[0].includes(category);
-                } 
-              }
-            )])
-          }
-          setIndex(index + volumes.length);
-        });
+        setIndex(index + 30);
+        fetchBooks(request, category, index + 30, order)
+        .then(volumes => setData(data.concat(volumes)));
     }
 
 
@@ -53,7 +30,7 @@ function Books() {
                             const authors = book.volumeInfo.authors;
                             return (
 
-                        <li className="cards__card" onClick={() => getBook(book)} key={index}>
+                        <li className="cards__card" key={index}>
                                 <Link className="cards__card__link" to={'/books/' + book.id}>
                                     <Card className="cards__card__block" border="secondary" style={{ width: '10rem' }}>
                                         <Card.Img className="cards__card__img" variant="top" src={book.volumeInfo.imageLinks?.thumbnail ||  placeholder} alt="#" />
@@ -71,7 +48,8 @@ function Books() {
                         
                         </ul>
                 </div>
-                {data.length > 0 && !loading ? <Button className="book__load" onClick={pagination}>load more</Button> : loading ? <img className="books__loading" src={loadingImg} alt="loading" /> : ''}
+                {loading ? <img className="books__loading" src={loadingImg} alt="loading" /> : null}
+                {data.length > 0 && !loading ? <Button className="book__load" onClick={pagination}>load more</Button> : null}
             </div>
         </section>
     )
