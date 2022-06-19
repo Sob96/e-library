@@ -1,0 +1,126 @@
+/*General styles*/
+
+$special-grey: #F7F7F7;
+$special-white: #FFFFFF;
+$special-black: #0D0D0D;
+$special-blue: #0B5ED7;
+
+%bold-text {
+    font-family: Overpass-Black;
+    font-size: 17px;
+  }
+  
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+@font-face {
+    font-family: Overpass;
+    src: url(../fonts/Overpass-Regular.ttf);
+}
+
+@font-face {
+    font-family: Overpass-Black;
+    src: url(../fonts/Overpass-Black.ttf);
+}
+
+body {
+    font-family: Overpass;
+    font-size: 15px;
+    background-color: $special-white;
+    color: $special-black;
+}
+
+.container {
+    width: 90%;
+    max-width: 1440px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+    
+/*Search*/
+
+.search {
+    width: 100%;
+    padding: 10px 0 15px 0;
+    margin-bottom: 5px;
+    background-color: $special-grey;
+}
+
+.search__headline {
+    font-family: Overpass-Black;
+    font-size: 50px;
+    color: $special-blue;
+}
+
+.search__selects {
+    width: 12%;
+    display: inline-block;
+    font-size: 14px;
+}
+
+.search__selects__wrapper {
+    label {
+        @extend %bold-text;
+        margin-right: 10px;
+
+    }
+    label:not(:first-child) {
+        margin-left: 10px;
+    }
+    select:first-child {
+        margin-right: 10px;
+    }
+}
+
+/*Books*/
+
+.books__wrapper {
+    display: flex;
+    flex-flow: column wrap;
+}
+
+.books__total {
+    margin: 10px 0;
+    text-align: center;
+}
+
+.cards__card {
+    list-style-type: none;
+    display: inline-block;
+}
+
+.cards__card__block {
+    background-color: $special-grey;
+}
+
+.cards__card__link {
+    text-decoration: none;
+    color: $special-black;
+}
+
+.cards__card__link:hover {
+    color: $special-black;
+}
+
+.cards__card__category {
+    text-decoration: underline;
+}
+
+.cards__card__title {
+    @extend %bold-text;
+}
+
+.cards__card__authors {
+    font-style: italic;
+}
+
+/*Book*/
+
+
+
+
+

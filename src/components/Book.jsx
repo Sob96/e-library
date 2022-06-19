@@ -11,7 +11,7 @@ function Book() {
     return (
         <section className="book">
             <div className="container">
-                <div className="books__wrappp">
+                <div className="books__wrapper">
                     <img src={book?.volumeInfo?.imageLinks?.thumbnail ||  placeholder} alt="#" />
                     <div className="book__info">
                         <h3>{!title ? "" : title}</h3>

@@ -1,5 +1,5 @@
-import { useContext, useState } from "react";
-import { Card } from "react-bootstrap";
+import { useContext } from "react";
+import { Button, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { AppContext } from "../App";
 import placeholder from '../img/placeholder.png';
@@ -53,14 +53,14 @@ function Books() {
                             const authors = book.volumeInfo.authors;
                             return (
 
-                        <li onClick={() => getBook(book)} key={index}>
-                                <Link to={'/books/' + book.id}>
-                                    <Card style={{ width: '10rem' }}>
-                                        <Card.Img variant="top" src={book.volumeInfo.imageLinks?.thumbnail ||  placeholder} alt="#" />
+                        <li className="cards__card" onClick={() => getBook(book)} key={index}>
+                                <Link className="cards__card__link" to={'/books/' + book.id}>
+                                    <Card className="cards__card__block" border="secondary" style={{ width: '10rem' }}>
+                                        <Card.Img className="cards__card__img" variant="top" src={book.volumeInfo.imageLinks?.thumbnail ||  placeholder} alt="#" />
                                         <Card.Body>
-                                            <Card.Text>{!category ? "" : category[0]}</Card.Text>
-                                            <Card.Title>{!title ? "" : title}</Card.Title>
-                                            <Card.Text>{!authors ? "" : authors}</Card.Text>
+                                            <Card.Text className="cards__card__category">{!category ? "" : category[0]}</Card.Text>
+                                            <Card.Title className="cards__card__title">{!title ? "" : title}</Card.Title>
+                                            <Card.Text className="cards__card__authors">{!authors ? "" : authors}</Card.Text>
                                         </Card.Body>
                                     </Card>
                                 </Link>
@@ -71,7 +71,7 @@ function Books() {
                         
                         </ul>
                 </div>
-                {data.length > 0 && !loading ? <button className="book__load" onClick={pagination}>load more</button> : loading ? <img className="books__loading" src={loadingImg} alt="loading" /> : ''}
+                {data.length > 0 && !loading ? <Button className="book__load" onClick={pagination}>load more</Button> : loading ? <img className="books__loading" src={loadingImg} alt="loading" /> : ''}
             </div>
         </section>
     )

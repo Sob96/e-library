@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.scss';
+import './styles/App.scss';
 import Books from './components/Books';
 import Search from './components/Search';
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';

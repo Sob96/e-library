@@ -1,4 +1,5 @@
 import { useContext, useState } from "react";
+import { Button, Form, InputGroup } from "react-bootstrap";
 import { AppContext } from "../App";
 
 function Search() {
@@ -6,6 +7,7 @@ function Search() {
 
   function getBooks(e) {
     e.preventDefault();
+    if (request.length < 3) return;
     setLoading(true);
     fetch(`https://www.googleapis.com/books/v1/volumes?q=${request}&orderBy=${order}&key=AIzaSyCU2Ohli3IT9UIkV3fzmteL44bELaReN4o&startIndex=${index}&maxResults=30`)
     .then(response => {
@@ -51,13 +53,19 @@ function Search() {
     return (
         <header className="search">
           <div className="container">
-            <form onSubmit={getBooks}>
-                      <input value={request} onChange={getRequest} type="text" placeholder="Search..."/>
-                      <button type="submit">Search</button>
-                  </form>
-                  <div className="search_selects">
+            <h2 className="search__headline">Bookle</h2>
+            <Form onSubmit={getBooks}>
+              <InputGroup className="mb-3">
+                <Form.Control value={request} onChange={getRequest}
+                placeholder="Enter your request"/>
+                <Button type="Sumbit">
+                Search
+                </Button>
+              </InputGroup>
+            </Form>
+                  <div className="search__selects__wrapper">
                       <label htmlFor="categories">categories</label>
-                      <select value={category} onChange={getCategory} id="categories"> 
+                      <Form.Select className="search__selects" value={category} onChange={getCategory} id="categories">
                           <option>All</option> 
                           <option>Art</option> 
                           <option>Biography</option> 
@@ -65,12 +73,12 @@ function Search() {
                           <option>History</option> 
                           <option>Medical</option> 
                           <option>Poetry</option>  
-                      </select>
+                      </Form.Select>
                       <label htmlFor="sorting">sorting by</label>
-                      <select value={order} onChange={getOrder} id="sorting"> 
+                      <Form.Select className="search__selects" value={order} onChange={getOrder} id="sorting">
                           <option>relevance</option> 
-                          <option>newest</option> 
-                      </select>
+                          <option>newest</option>   
+                      </Form.Select>
                   </div>
           </div>
                
