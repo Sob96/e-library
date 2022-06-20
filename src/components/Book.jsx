@@ -1,43 +1,43 @@
-import { useContext } from "react";
-import { AppContext } from "../App";
+import { useContext, useEffect } from "react";
 import { useParams } from 'react-router-dom';
+
+import { AppContext } from "../App";
 import placeholder from '../img/placeholder.png';
-import { useEffect } from "react";
 
-function Book() {
-    const { book, apiKey, setBook } = useContext(AppContext);
-    const category = book.volumeInfo?.categories;
-    const title = book.volumeInfo?.title;
-    const authors = book.volumeInfo?.authors;
-    const description = book.volumeInfo?.description;
-
+const Book = () => {
+    const { book, setBook } = useContext(AppContext);
     const { id } = useParams();
+    const category = book.volumeInfo?.categories?.join(', ');
+    const title = book.volumeInfo?.title;
+    const authors = book.volumeInfo?.authors?.join(', ');
+    const description = book.volumeInfo?.description;
+    const img = book.volumeInfo?.imageLinks?.thumbnail;
 
-    function getBook() {
+    const getBook = () => {
         fetch(`https://www.googleapis.com/books/v1/volumes/${id}`)
-        .then(response => {
-            return response.json();
-          })
-          .then(result => {
-            setBook(result);
+            .then(response => {
+                return response.json();
+            })
+            .then(result => {
+                setBook(result);
           })
     }
 
     useEffect(() => {
-        getBook()
+        getBook();
     }, [])
+    
 
     return (
         <section className="book">
             <div className="container">
-                <div className="books__wrapper">
-                    <img src={book?.volumeInfo?.imageLinks?.thumbnail ||  placeholder} alt="#" />
+                <div className="book__wrapper">
+                    <img className="book__img" src={img ||  placeholder} alt="#" />
                     <div className="book__info">
                         <h3>{!title ? "" : title}</h3>
-                        <p>{!category ? "" : category}</p>
-                        <p>{!authors ? "" : authors}</p>
-                        <p>{!description ? "" : description}</p>
-                    
+                        <p className="book__info__category">{category}</p>
+                        <p className="book__info__authors">{authors}</p>
+                        <p className="book__info__description">{description}</p>
                     </div>
                 </div>
             </div>
