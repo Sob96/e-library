@@ -10,7 +10,6 @@ const Search = () => {
   const navigate = useNavigate();
 
   const getBooks = e => {
-
     e.preventDefault();
 
     setData([]);
@@ -24,11 +23,10 @@ const Search = () => {
   const onRequestChange = e => setRequest(e.target.value);
 
   const onCategoryChange = e => {
-
     setCategory(e.target.value);
 
     fetchBooks(request, e.target.value, index, order)
-    .then(volumes => setData(volumes));
+    .then(volumes => setData(volumes))
   }
 
   const onOrderChange = e => {

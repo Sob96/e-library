@@ -24,7 +24,7 @@ const App = () => {
   const apiKey = 'AIzaSyCU2Ohli3IT9UIkV3fzmteL44bELaReN4o';
 
   const fetchBooks = (request, category, index, order) => {
-    
+    setNoResult('');
     setLoading(true);
 
     return fetch(`https://www.googleapis.com/books/v1/volumes?q=${request}&orderBy=${order}&key=${apiKey}&startIndex=${index}&maxResults=30`)

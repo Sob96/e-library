@@ -8,17 +8,16 @@ import loadingImg from '../img/loadingImg.gif';
 
 
 const Books = () => {
-    const { data, setData,  totalResult, setTotalResult, loading, noResult, request, order, category, index, setIndex, fetchBooks} = useContext(AppContext);
+    const { data, setData,  totalResult, setTotalResult, loading, noResult, request, order, category, index, setIndex, fetchBooks } = useContext(AppContext);
 
     const pagination = () => {
-
         setIndex(index + 30);
 
         fetchBooks(request, category, index + 30, order)
             .then(volumes => {
                 setData(data.concat(volumes));
                 setTotalResult(totalResult + volumes.length);
-        });
+            })
     }
 
 
@@ -46,15 +45,14 @@ const Books = () => {
                                             </Card.Body>
                                         </Card>
                                     </Link>
-                                        
-                                    </li>
-                                    );
-                        }) }
+                                </li>
+                            )
+                        })}
                         
                     </ul>
                 </div>
                 {loading ? <img className="books__loading" src={loadingImg} alt="loading" /> : null}
-                {data.length > 0 && !loading ? <Button className="book__load" onClick={pagination}>load more</Button> : null}
+                {data.length > 0 && !loading ? <Button className="book__button" onClick={pagination}>load more</Button> : null}
             </div>
         </section>
     )
