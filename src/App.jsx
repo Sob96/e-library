@@ -59,7 +59,7 @@ const App = () => {
 
   return (
     <AppContext.Provider value={{data, setData, book, setBook, totalResult, setTotalResult, loading, setLoading, noResult, setNoResult, request, setRequest, order, setOrder, category, setCategory, index, setIndex, apiKey, fetchBooks}}>
-      <Router>
+      <Router basename="/e-library">
         <Search/>
         <Routes>
           <Route path="/" element={<Books />}></Route>

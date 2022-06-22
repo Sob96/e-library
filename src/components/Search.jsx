@@ -25,7 +25,7 @@ const Search = () => {
   const onCategoryChange = e => {
     setCategory(e.target.value);
 
-    fetchBooks(request, e.target.value, index, order)
+    if (location.pathname === '/') fetchBooks(request, e.target.value, index, order)
     .then(volumes => setData(volumes))
   }
 
@@ -33,7 +33,7 @@ const Search = () => {
 
     setOrder(e.target.value);
 
-    fetchBooks(request, category, index, e.target.value)
+    if (location.pathname === '/') fetchBooks(request, category, index, e.target.value)
       .then(volumes => setData(volumes));
   }
 
