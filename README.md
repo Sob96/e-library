@@ -22,6 +22,8 @@ Error handling is provided by:
 In this project I mastered:
 - React hooks
 - work with Google Books API
+- SCSS
+- Bootstrap
 - search
 - filtration
 - pagination
