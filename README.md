@@ -1,26 +1,36 @@
-### React-приложение поиска книг e-library с помощью Google Books API.
+### Books search React app (e-library) using Google Books API.
 
-**Внимание:** Google Books API не работает на территории Беларуси. Если вы находитесь в Беларуси, активируйте VPN перед использованием приложения (я использовал Psiphon).
+**Warning:** Google Books API doesn't work in Belarus. If you are in Belarus, activate your VPN before using the app (for example Psiphon).
 
-Опубликованный проект на GitHub Pages: [тут](https://sob96.github.io/e-library/).
+ Published project on GitHub Pages you can find [here](https://sob96.github.io/e-library/).
 
-Для запуска приложения локально:
+
+The e-library has 3 components: `Search`, `Books` and `Book`.
+
+The `Search` component renders selects and a form with an input and a button.  The component also includes validation, getting data from the input and selects.
+
+The `Books` component performs pagination, rendering of books coming from the Google Books API, their number, loading animation and the "load more" button.
+
+The `Book` component renders the book clicked by the user. The book id comes through useParams, after which a request is sent with the id for a specific book to the Google Books API. Loading animation also works during loading of the book.
+
+Error handling is provided by:
+- .catch in fetch
+- optional chains and img plugs if some parts of the book data doesn't arrive
+- Error boundary
+
+
+In this project I mastered:
+- React hooks
+- work with Google Books API
+- search
+- filtration
+- pagination
+- error handling
+- loading indicator
+
+
+You can run this project locally just do:
 1. git clone https://github.com/Sob96/e-library.git
 2. cd e-library
 3. npm install
 4. npm start
-
-в `App` хранятся общие стейты, используемые в нескольких компонентах, контекст, через который они передаются, ф-ция fetchBooks, которая используется в компонентах приложения для получения массива данных из Google API Books. В этой же функции реализованы фильтрация и сортировка. Они происходят в реальном времени в отношении книг, которые пришли из Google Books API; фильтрация - в отношении книг, которые уже отрисованы на странице в соответствии с шагом пагинации, сортировка - в отношении всех книг, пришедших по запросу. Также в App происходит отрисовка компонентов приложения и роутинг.
-
-React-приложение поиска книг e-library имеет 3 компонента: `Search`, `Books` и `Book`.
-
-В компоненте `Search` осуществляется отрисовка селектов и формы с инпутом и кнопкой. Тут же происходит валидация, получение данных из инпута и селектов.
-
-В компоненте `Books` осуществляется пагинация, отрисовка книг, пришедших из Google Books API, их количества, анимации загрузки и кнопки "load more".
-
-В компоненте `Book` происходит отрисовка книги, по которой кликнул пользователь. id книги приходит через useParams, после этого отправляется запрос с id для конкретной книги в Google Books API. На время загрузки книги также реализована анимация загрузки.
-
-Обработка ошибок заключается в:
-- .catch в fetch
-- опциональных цепочках и заглушках img на случай, если какая-то часть данных книги не придет
-- Error boundary, которым обернуто все приложение
